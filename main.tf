@@ -22,7 +22,7 @@ chkconfig httpd on
 EOF
 
   tags = {
-    Name  = "PROD WebServer - ${terraform.workspace}"
+    Name  = "{var.server_name} WebServer"
     Owner = "AKristoit"
   }
 }
@@ -30,7 +30,7 @@ EOF
 resource "aws_default_vpc" "default" {} # This need to be added since AWS Provider v4.29+ to get VPC id
 
 resource "aws_security_group" "web" {
-  name_prefix = "WebServer SG Prod"
+  name_prefix = "{var.server_name} WebServer SG"
   vpc_id      = aws_default_vpc.default.id # This need to be added since AWS Provider v4.29+ to set VPC id
 
   ingress {
@@ -47,7 +47,7 @@ resource "aws_security_group" "web" {
   }
 
   tags = {
-    Name  = "Web Server SecurityGroup - ${terraform.workspace}"
+    Name  = "{var.server_name} Web Server SecurityGroup"
     Owner = "AKristoit"
   }
 }
